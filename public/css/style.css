@@ -1,0 +1,105 @@
+body{
+    font-family: 'Poppins', sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.container{
+    flex: 1;
+}
+.navbar{
+    height: 5rem;
+    background-color: white;
+}
+.fa-solid{
+    color: #FF385C;
+    font-size: 2rem;
+}
+.nav-link{
+    color: #222222 !important;
+}
+/* style for index route*/
+.f-info-links a{
+    text-decoration: none;
+    color:#222222;
+    margin-left: 1rem;
+}
+.f-info-links a:hover{
+    text-decoration: underline;
+}
+.f-info-links, 
+.f-info-socials,
+.f-info-brand{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.f-info-socials i{
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+.f-info{
+    text-align: center;
+    height: 10rem;
+    background-color: aliceblue;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+}
+
+/* card style */
+.listing-card{
+     border: none !important; /*to override the bootstrap style */
+     border-radius: 20rem;
+     margin-bottom: 2rem;
+}
+.card-img-top{
+    height: 16rem;
+    border-radius: 2rem !important;
+    width: 100%;
+    object-fit: cover !important;
+}
+.card-body{
+    padding: 0 !important;
+}
+.card-text {
+    font-weight: 400 !important;
+}
+.listing-link{
+    text-decoration: none;
+}
+/* CARD EFFECT */
+.card-img-overlay{
+    /* height: fit-content;
+    width: fit-content;
+    background-color: white;
+    border-radius: 10rem !important;
+    padding: 0.5rem !important;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem; */
+    opacity: 0;
+}
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
+}
+.add-btn{
+    background-color:#FF385C !important;
+    border: none !important;
+}
+.edit-btn{
+    background-color:#FF385C !important;
+    border: none !important;
+}
+.btns{
+    display: flex;
+    margin: 1rem;
+}
+
+#map { 
+    height: 450px;
+    width: 180vh; 
+    border-radius: 5%;
+}

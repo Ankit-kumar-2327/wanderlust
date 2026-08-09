@@ -15,10 +15,24 @@
     padding: 0.8rem 3rem 0.8rem 5rem;
     font-size: 0.9;
   }
+  .brand-link{
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 700;
+    color: #FF385C;
+    text-decoration: none;
+  }
+  .brand-link:hover{
+    color: #ff1f4f;
+  }
 </style>
 <nav class="navbar navbar-expand-lg bg-body-light border-bottom border-primary sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"><i class="fa-solid fa-location-arrow"></i></a>
+    <a class="navbar-brand brand-link" href="/listings">
+      <i class="fa-solid fa-location-arrow"></i>
+      <span>wanderLust</span>
+    </a>
     <button 
        class="navbar-toggler" 
        type="button" 
@@ -34,10 +48,10 @@
       </div>
 
       <div class="navbar-nav ms-auto">
-        <form class="d-flex" role="search">
-          <input class="form-control me-2 inp-search" type="search" placeholder="Search destination"/>
+        <form class="d-flex" role="search" action="/listings" method="GET">
+          <input class="form-control me-2 inp-search" type="search" name="search" placeholder="Search destination" value="<%= typeof searchTerm !== 'undefined' ? searchTerm : '' %>"/>
           <button class="btn btn-search" type="submit">Search</button>
-    </form>
+        </form>
       </div>
 
       <div class="navbar-nav ms-auto" style="background-color:rgb(231, 234, 237); border-radius:25px; padding: 0 1rem 0 1rem;">

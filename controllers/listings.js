@@ -1,11 +1,17 @@
 const Listing = require("../models/listing.js");
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+const { buildListingSearchQuery } = require("../utils/listingSearch.js");
 const mapToken = process.env.MAP_TOKEN;
-const geocodingClient = mbxGeocoding({ accessToken: mapToken });
+const geocodingClient = mapToken
+  ? mbxGeocoding({ accessToken: mapToken })
+  : null;
 
 module.exports.index = async (req, res) => {
-  let allListings = await Listing.find({});
-  res.render("listings/index.ejs", { allListings });
+  const searchTerm = req.query.search || "";
+  const searchQuery = buildListingSearchQuery(searchTerm);
+  let allListings = await Listing.find(searchQuery);
+
+  res.render("listings/index.ejs", { allListings, searchTerm });
 };
 
 module.exports.renderNewForm = (req, res) => {

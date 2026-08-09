@@ -70,6 +70,11 @@
         </div>
     </div>
     <br>
+    <% if (typeof searchTerm !== 'undefined' && searchTerm) { %>
+        <div class="text-center mb-3">
+            <h5>Showing results for: <span class="text-danger"><%= searchTerm %></span></h5>
+        </div>
+    <% } %>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
         <% for(let listing of allListings){ %>
             <a href="/listings/<%= listing._id %>" class="listing-link">

@@ -13,11 +13,14 @@ const ExpressError = require("./utils/ExpressError.js");
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
+const staticRouter = require("./routes/static.js");
 
 const session = require("express-session");
 const MongoStore = require("connect-mongo").default;
 const cookieParser = require("cookie-parser");
+
 console.log(MongoStore);
+
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -31,6 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
 const DB_URL = process.env.ATLAS_MONGODB_URL;
 
 main()
@@ -56,6 +60,7 @@ const store = MongoStore.create({
 store.on("error", () => {
   console.log("Error in MongoSession Store", error);
 });
+
 const sessionOptions = {
   store,
   secret: process.env.SECRET,
@@ -67,6 +72,7 @@ const sessionOptions = {
     httpOnly: true,
   },
 };
+
 app.get("/", (req, res) => {
   res.redirect("/listings");
 });
@@ -92,6 +98,7 @@ app.use((req, res, next) => {
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
+app.use("/", staticRouter);
 
 app.use((err, req, res, next) => {
   let { statusCode = 500, message = "Something went wrong" } = err;

@@ -23,7 +23,10 @@ router.route("/login")
     userController.loginUser
 );
 
+router.post("/api/login", wrapAsync(userController.apiLoginUser));
+router.post("/api/signup", wrapAsync(userController.signUpUserApi));
+
 // log out router
-router.get("/logout",userController.logOutUser);
+router.get("/logout", userController.logOutUser);
 
 module.exports = router;

@@ -63,13 +63,21 @@ module.exports.showListing = async (req, res) => {
     .populate({ path: "reviews", populate: { path: "createdBy" } })
     .populate("owner");
 
-  console.log(listing);
   if (!listing) {
     req.flash("error", "listing you requested for does not exit");
     return res.redirect("/listings");
-  } else {
-    res.render("listings/show.ejs", { listing });
   }
+  res.render("listings/show.ejs", { listing });
+};
+
+module.exports.renderReservePage = async (req, res) => {
+  let { id } = req.params;
+  let listing = await Listing.findById(id).populate("owner");
+  if (!listing) {
+    req.flash("error", "listing you requested for does not exist");
+    return res.redirect("/listings");
+  }
+  res.render("listings/reserve.ejs", { listing });
 };
 
 module.exports.editListingForm = async (req, res) => {

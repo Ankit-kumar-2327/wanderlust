@@ -128,7 +128,7 @@
                         <span class="feature-pill"><i class="fa-solid fa-message"></i> <%= listing.reviews.length %> reviews</span>
                     </div>
                     <div class="d-grid gap-2">
-                        <a href="#reviews" class="btn btn-danger">Reserve</a>
+                        <a href="/listings/<%= listing._id %>/reserve" class="btn btn-danger">Reserve</a>
                         <a href="/listings/<%= listing._id %>/edit" class="btn btn-outline-dark">Edit listing</a>
                     </div>
                     <hr>

@@ -1,0 +1,271 @@
+<%- layout("/layouts/boilerplate") %>
+<style>
+  .reserve-page {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 2rem 0 4rem;
+  }
+
+  .reserve-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .reserve-header h1 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  .reserve-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .reserve-panel {
+    overflow: hidden;
+    border: 1px solid #e8e8e8;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.07);
+  }
+
+  .stay-image {
+    display: block;
+    width: 100%;
+    height: 330px;
+    object-fit: cover;
+  }
+
+  .stay-content {
+    padding: 1.5rem;
+  }
+
+  .eyebrow {
+    margin-bottom: 0.4rem;
+    color: #6b7280;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .stay-title {
+    margin-bottom: 0.4rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+
+  .location-line,
+  .host-line {
+    color: #5f6368;
+  }
+
+  .host-line {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-top: 1.4rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid #eeeeee;
+  }
+
+  .host-avatar {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    place-items: center;
+    border-radius: 50%;
+    background: #222;
+    color: #fff;
+  }
+
+  .host-avatar i {
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  .booking-panel {
+    position: sticky;
+    top: 90px;
+    padding: 1.5rem;
+  }
+
+  .price-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .price {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .muted {
+    color: #6b7280;
+  }
+
+  .form-control {
+    min-height: 46px;
+    border-color: #d8dadd;
+  }
+
+  .date-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.45rem 0;
+  }
+
+  .reserve-note {
+    border: 1px solid #f5d7dc;
+    border-radius: 12px;
+    background: #fff6f7;
+    color: #7d2838;
+    font-size: 0.88rem;
+  }
+
+  @media (max-width: 767px) {
+    .reserve-page {
+      padding-top: 1rem;
+    }
+
+    .reserve-header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .reserve-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .booking-panel {
+      position: static;
+    }
+
+    .stay-image {
+      height: 240px;
+    }
+  }
+</style>
+
+<main class="reserve-page">
+  <div class="reserve-header">
+    <div>
+      <p class="eyebrow">Your stay</p>
+      <h1>Reserve your stay</h1>
+    </div>
+    <a href="/listings/<%= listing._id %>" class="btn btn-outline-dark">
+      <i class="fa-solid fa-arrow-left me-2"></i>Back to listing
+    </a>
+  </div>
+
+  <div class="reserve-grid">
+    <section class="reserve-panel">
+      <img
+        src="<%= listing.image && listing.image.url ? listing.image.url : '/images/placeholder.jpg' %>"
+        class="stay-image"
+        alt="<%= listing.title %>"
+      />
+      <div class="stay-content">
+        <p class="eyebrow">Selected accommodation</p>
+        <h2 class="stay-title"><%= listing.title %></h2>
+        <p class="location-line mb-0">
+          <i class="fa-solid fa-location-dot me-2"></i>
+          <%= listing.location %>, <%= listing.country %>
+        </p>
+        <p class="mt-4 mb-0"><%= listing.description %></p>
+
+        <div class="host-line">
+          <div class="host-avatar"><i class="fa-solid fa-user"></i></div>
+          <div>
+            <div class="fw-semibold">
+              Hosted by <%= listing.owner ? listing.owner.username : "your host"
+              %>
+            </div>
+            <div class="small muted">
+              A comfortable place for your next trip
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reserve-panel booking-panel">
+      <div class="price-row">
+        <div>
+          <span class="price"
+            >₹<%= listing.price.toLocaleString("en-IN") %></span
+          >
+          <span class="muted"> / night</span>
+        </div>
+        <span class="muted"
+          ><i class="fa-solid fa-star me-1"></i>Highly rated</span
+        >
+      </div>
+
+      <form>
+        <div class="date-fields mb-3">
+          <div>
+            <label for="checkin" class="form-label fw-semibold">Check-in</label>
+            <input id="checkin" type="date" class="form-control" required />
+          </div>
+          <div>
+            <label for="checkout" class="form-label fw-semibold"
+              >Check-out</label
+            >
+            <input id="checkout" type="date" class="form-control" required />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="guests" class="form-label fw-semibold">Guests</label>
+          <select id="guests" class="form-select" aria-label="Number of guests">
+            <option>1 guest</option>
+            <option>2 guests</option>
+            <option>3 guests</option>
+            <option>4 guests</option>
+          </select>
+        </div>
+
+        <div class="border-top border-bottom py-3 my-4">
+          <div class="summary-row">
+            <span class="muted"
+              >₹<%= listing.price.toLocaleString("en-IN") %> x 1 night</span
+            >
+            <span>₹<%= listing.price.toLocaleString("en-IN") %></span>
+          </div>
+          <div class="summary-row fw-semibold">
+            <span>Total before taxes</span>
+            <span>₹<%= listing.price.toLocaleString("en-IN") %></span>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-danger w-100 py-2" disabled>
+          Reservation coming soon
+        </button>
+        <div class="reserve-note mt-3 p-3">
+          <i class="fa-solid fa-circle-info me-2"></i>
+          Booking confirmation and payment are not connected yet. Your dates are
+          not being reserved.
+        </div>
+      </form>
+    </section>
+  </div>
+</main>
